@@ -1,0 +1,32 @@
+<app-navbar></app-navbar>
+
+<div class="container-fluid account-container mt-4">
+  <div class="AccountTab">
+    <h1>Account</h1>
+    <hr>
+    <h4>Account created: 1999</h4>
+    <h4>Funds: $20.00</h4>
+    <button (click) = "redirectToLogin()">Log out</button>
+  </div>
+  <div class="BooksList">
+    <h1>Books</h1>
+    <hr>
+    <ul>
+      <li *ngFor="let book of books; index as i;" class="card p-1">
+        <h5>{{book.title}}</h5>
+        <h6>Checked out at: N/A</h6>
+        <h6>Check in by: N/A</h6>
+        <button>Check in</button>
+      </li>
+    </ul>
+  </div>
+  <div class="AccountHistory">
+    <h1>History</h1>
+    <hr>
+    <ul>
+      <li *ngFor="let statement of history; index as i">
+        <h6>{{ statement }}</h6>
+      </li>
+    </ul>
+  </div>
+</div>
