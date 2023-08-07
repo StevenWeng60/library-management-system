@@ -1,0 +1,24 @@
+.search-body {
+  border: 5px solid black;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.book-img {
+  height: 100%;
+  width: 20%;
+}
+
+.card-img-side {
+  max-width: 100px;
+  height:100%;
+  float: left;
+  margin-right: 10px;
+}
+
+.book-flex {
+  display: flex;
+  flex-direction: row;
+}
