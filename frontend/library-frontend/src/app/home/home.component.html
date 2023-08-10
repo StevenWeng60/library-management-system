@@ -1,27 +1,40 @@
 <app-navbar></app-navbar>
-
-<div class="container-md body-container">
-  <h1>Welcome User!</h1>
-  <br>
-  <h2>Let me walk you through how this application works</h2>
-  <h3></h3>
-  <br>
-  <h4>Search for books</h4>
-  <p>Search for books by utilizing the search function. There are also different ways to filter searches</p>
-  <br>
-  <h4>Check books out</h4>
-  <p>Check out books by utilizing the search bar. If there is at least one copy available, then you may check out the
-    book</p>
-  <br>
-  <h4>Check books in</h4>
-  <p>Check in books by pressing the return button next to the book within your booklist</p>
-  <br>
-  <h4>Recent additions</h4>
-  <p>Check the recent additions tab to find a history of the most recent books added to the database</p>
-  <br>
-  <h4>Additional rules</h4>
-  <p>1. Each user can have at most, up to 10 books checked out</p>
-  <p>2. Each book can be checked out for up to 2 weeks</p>
-  <br>
-  <h2>And thats it! Thanks for using this application</h2>
+<div class="homecontainer mt-5">
+  <div id="carouselExampleDark" class="carousel carousel-dark slide maxslides">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true"
+        aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active" data-bs-interval="2000">
+        <img src="/assets/library-with-tables.jpg" class="d-block w-100" alt="..." height="700">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Welcome!</h5>
+          <p>We are glad to have you here!</p>
+        </div>
+      </div>
+      <div class="carousel-item" data-bs-interval="2000">
+        <img src="/assets/default-book.png" class="d-block w-100" height="700" alt="...">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>We hope</h5>
+          <p>That you can find the book that you are looking for</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="/assets/stack-of-books.jpg" class="d-block w-100" height="700" alt="...">
+        <div class="carousel-caption d-none d-md-block">
+        </div>
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
 </div>
