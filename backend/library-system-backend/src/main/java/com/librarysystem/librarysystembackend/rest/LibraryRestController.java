@@ -1,14 +1,91 @@
 package com.librarysystem.librarysystembackend.rest;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.librarysystem.librarysystembackend.dao.AppDAO;
+import com.librarysystem.librarysystembackend.dao.AppDAOImpl;
+import com.librarysystem.librarysystembackend.entity.Book;
+import com.librarysystem.librarysystembackend.entity.BookCheckout;
+import com.librarysystem.librarysystembackend.entity.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.bind.annotation.*;
+
 
 @RestController
 public class LibraryRestController {
 
-    // expose "/" that returns "Hello World"
+    private AppDAO appDAO;
+    @Autowired
+    public LibraryRestController(AppDAO appDAO){
+        this.appDAO = appDAO;
+    }
+
     @GetMapping("/")
     public String sayHello() {
         return "Hello World";
     }
+
+    // Post mapping for creating a user
+    @PostMapping("/createUser")
+    public String createUser() {
+        User theUser = new User("bobbiwasabi", "Steven", "Weng", "stevenweng50@gmail.com", 21, "2023-08-11");
+        appDAO.save(theUser);
+
+        return theUser.toString();
+    }
+
+    // Post mapping for checking out a book
+    @PostMapping("/bookCheckout")
+    public String checkoutBook() {
+        Book tempBook = appDAO.findBookById(3);
+        User tempUser = appDAO.findUserById(3);
+        BookCheckout theBookCheckout = new BookCheckout("2023-08-10", "2023-08-17", tempBook, tempUser);
+        appDAO.save(theBookCheckout);
+
+        return theBookCheckout.toString();
+    }
+
+    // Get mapping for getting all checkouts of a book
+    @GetMapping("/getCheckouts")
+    public String getCheckout() {
+        Book tempBook = appDAO.findBookById(3);
+
+        return tempBook.getCheckouts().toString();
+    }
+
+    // Get mapping for retrieving a list of books which takes in a search parameter
+    @GetMapping("/getBookResults")
+    public String bookResults() {
+        return "Book results";
+    }
+
+    // Post mapping for adding a book with title, author, published date, copies available
+    @GetMapping("/book")
+    public String getBook() {
+        return "Getting book";
+    }
+
+    // Post mapping for adding a book with title, author, published date, copies available
+    @PostMapping("/book")
+    public String createBook() {
+        Book aBook = new Book("Dinosaurs Before Dark","Mary", "Osborne", "1992-07-28", 2, "Fiction");
+        appDAO.save(aBook);
+
+        return aBook.toString();
+    }
+
+    // Put mapping for modifying a book
+    @PutMapping("/book")
+    public String modifyBook() {
+        return "Updating book";
+    }
+
+    // Delete mapping for deleting a book
+    @DeleteMapping("/book")
+    public String deleteBook() {
+        appDAO.deleteBookById(9);
+        return "Deleting book";
+    }
+
+    // expose "/" that returns "Hello World"
+
 }
