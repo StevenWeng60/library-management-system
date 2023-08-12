@@ -55,6 +55,13 @@ public class AppDAOImpl implements AppDAO{
     }
 
     @Override
+    public List<Book> searchBookResults(String searchTitle) {
+        TypedQuery<Book> query = entityManager.createQuery("SELECT b FROM Book b WHERE b.title LIKE :s", Book.class);
+        query.setParameter("s", "%" + searchTitle + "%");
+        return query.getResultList();
+    }
+
+    @Override
     public List<Book> getAllBooks() {
         TypedQuery<Book> query = entityManager.createQuery("SELECT b FROM Book b", Book.class);
         return query.getResultList();

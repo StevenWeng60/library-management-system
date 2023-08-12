@@ -53,11 +53,18 @@ public class LibraryRestController {
         return tempBook.getCheckouts().toString();
     }
 
-    // Get mapping for retrieving a list of books which takes in a search parameter
+    // Example get mapping for an initial render on the client side
     @GetMapping("/getBookResults")
     public List<Book> bookResults() {
         return appDAO.getAllBooks();
     }
+
+    // Get mapping which takes in a search parameter and returns the results from the database
+    @GetMapping("/searchBooks/{searchText}")
+    public List<Book> searchBookResults(@PathVariable String searchText) {
+        return appDAO.searchBookResults(searchText);
+    }
+
 
     // Post mapping for adding a book with title, author, published date, copies available
     @GetMapping("/book")
