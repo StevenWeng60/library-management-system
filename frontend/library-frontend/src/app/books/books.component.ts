@@ -14,8 +14,10 @@ import { hardcodedBooks } from '../utilities/hardcode-books';
 export class BooksComponent implements OnInit {
   searchText: String = "";
   books: Book[] = [];
+  searchCategory: String = "";
   constructor(private http: HttpClient) {
     this.books = hardcodedBooks;
+    this.searchCategory = "Title";
   }
 
   // Load initial book data
@@ -44,7 +46,7 @@ export class BooksComponent implements OnInit {
 
   // Make a get request to the server to get books according to search params
   search(): void {
-    this.http.get(`http://localhost:8080/searchBooks/${this.searchText}`).subscribe(
+    this.http.get(`http://localhost:8080/searchBooks/${this.searchCategory}/${this.searchText}`).subscribe(
       (v: any) => {
         // Next thing to do is to create the Book objects
         this.books = [];
@@ -63,5 +65,9 @@ export class BooksComponent implements OnInit {
       }
     );
     console.log(this.searchText);
+  }
+
+  changeCategory(category: string): void {
+    this.searchCategory = category;
   }
 }

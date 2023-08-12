@@ -16,6 +16,6 @@ public interface AppDAO {
 
     void deleteBookById(int id);
     List<Book> getAllBooks();
-    List<Book> searchBookResults(String searchTitle);
+    List<Book> searchBookResults(String searchAttribute, String searchTitle);
 
 }

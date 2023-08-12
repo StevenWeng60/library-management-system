@@ -57,9 +57,11 @@ public class AppDAOImpl implements AppDAO{
         entityManager.remove(tempBook);
     }
 
+    // METHODS FOR QUERYING BOOKS BY TITLE, AUTHOR, GENRE BELOW
     @Override
-    public List<Book> searchBookResults(String searchTitle) {
-        TypedQuery<Book> query = entityManager.createQuery("SELECT b FROM Book b WHERE b.title LIKE :s", Book.class);
+    public List<Book> searchBookResults(String searchAttribute, String searchTitle) {
+        System.out.println("Search attribute: " + searchAttribute);
+        TypedQuery<Book> query = entityManager.createQuery("SELECT b FROM Book b WHERE b." + searchAttribute + " LIKE :s", Book.class);
         query.setParameter("s", "%" + searchTitle + "%");
         query.setMaxResults(searchLimit);
         return query.getResultList();

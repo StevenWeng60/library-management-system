@@ -62,9 +62,20 @@ public class LibraryRestController {
 
     // Get mapping which takes in a search parameter and returns the results from the database
     // Limit of 25 books per search request
-    @GetMapping("/searchBooks/{searchText}")
-    public List<Book> searchBookResults(@PathVariable String searchText) {
-        return appDAO.searchBookResults(searchText);
+    @GetMapping("/searchBooks/{searchAttribute}/{searchText}")
+    public List<Book> searchBookResults(@PathVariable String searchAttribute, @PathVariable String searchText) {
+        System.out.println(searchAttribute);
+        String attribute = "title";
+        if (searchAttribute.equals("Title")){
+            attribute = "title";
+        } else if (searchAttribute.equals("Author's first name")){
+            attribute = "authorFirstName";
+        } else if (searchAttribute.equals("Author's last name")) {
+            attribute = "authorLastName";
+        } else if (searchAttribute.equals("Genre")){
+            attribute = "genre";
+        }
+        return appDAO.searchBookResults(attribute, searchText);
     }
 
 

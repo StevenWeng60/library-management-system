@@ -22,3 +22,7 @@ ul {
   display: flex;
   flex-direction: row;
 }
+
+.hoverable:hover {
+  cursor: pointer;
+}
