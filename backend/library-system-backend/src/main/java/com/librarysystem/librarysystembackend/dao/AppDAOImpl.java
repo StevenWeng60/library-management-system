@@ -4,9 +4,12 @@ import com.librarysystem.librarysystembackend.entity.Book;
 import com.librarysystem.librarysystembackend.entity.BookCheckout;
 import com.librarysystem.librarysystembackend.entity.User;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Component
 public class AppDAOImpl implements AppDAO{
@@ -49,5 +52,11 @@ public class AppDAOImpl implements AppDAO{
         Book tempBook = entityManager.find(Book.class, id);
 
         entityManager.remove(tempBook);
+    }
+
+    @Override
+    public List<Book> getAllBooks() {
+        TypedQuery<Book> query = entityManager.createQuery("SELECT b FROM Book b", Book.class);
+        return query.getResultList();
     }
 }

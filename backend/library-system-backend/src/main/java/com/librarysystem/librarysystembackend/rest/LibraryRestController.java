@@ -8,6 +8,8 @@ import org.apache.tomcat.util.json.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @CrossOrigin
 @RestController
 public class LibraryRestController {
@@ -53,8 +55,8 @@ public class LibraryRestController {
 
     // Get mapping for retrieving a list of books which takes in a search parameter
     @GetMapping("/getBookResults")
-    public String bookResults() {
-        return "Book results";
+    public List<Book> bookResults() {
+        return appDAO.getAllBooks();
     }
 
     // Post mapping for adding a book with title, author, published date, copies available

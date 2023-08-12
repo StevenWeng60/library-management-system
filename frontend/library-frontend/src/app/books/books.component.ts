@@ -19,8 +19,25 @@ export class BooksComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.http.get('http://localhost:8080/book').subscribe(
-      (v) => console.info(v)
+    this.http.get('http://localhost:8080/getBookResults').subscribe(
+      (v: any) => {
+        console.log(v);
+        console.log(v.title);
+        // Next thing to do is to create the Book objects
+        this.books = [];
+        v.forEach((item: any) => {
+          let tempBook: Book = {
+            id: item.id,
+            title: item.title,
+            authorFirstName: item.authorFirstName,
+            authorLastName: item.authorLastName,
+            genre: item.genre,
+            copiesAvailable: item.copies,
+            releaseDate: item.publishedDate,
+          };
+          this.books.push(tempBook);
+        })
+      }
     );
   }
 

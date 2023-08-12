@@ -5,6 +5,8 @@ import com.librarysystem.librarysystembackend.entity.Book;
 import com.librarysystem.librarysystembackend.entity.BookCheckout;
 import com.librarysystem.librarysystembackend.entity.User;
 
+import java.util.List;
+
 public interface AppDAO {
     void save(Book theBook);
     void save(User theUser);
@@ -13,5 +15,6 @@ public interface AppDAO {
     User findUserById(int id);
 
     void deleteBookById(int id);
+    List<Book> getAllBooks();
 
 }
