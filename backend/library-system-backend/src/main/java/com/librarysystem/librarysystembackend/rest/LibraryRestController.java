@@ -1,15 +1,14 @@
 package com.librarysystem.librarysystembackend.rest;
 
 import com.librarysystem.librarysystembackend.dao.AppDAO;
-import com.librarysystem.librarysystembackend.dao.AppDAOImpl;
 import com.librarysystem.librarysystembackend.entity.Book;
 import com.librarysystem.librarysystembackend.entity.BookCheckout;
 import com.librarysystem.librarysystembackend.entity.User;
+import org.apache.tomcat.util.json.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.*;
 
-
+@CrossOrigin
 @RestController
 public class LibraryRestController {
 
@@ -60,8 +59,10 @@ public class LibraryRestController {
 
     // Post mapping for adding a book with title, author, published date, copies available
     @GetMapping("/book")
-    public String getBook() {
-        return "Getting book";
+    public Book getBook() {
+        Book tempBook = appDAO.findBookById(1);
+
+        return tempBook;
     }
 
     // Post mapping for adding a book with title, author, published date, copies available

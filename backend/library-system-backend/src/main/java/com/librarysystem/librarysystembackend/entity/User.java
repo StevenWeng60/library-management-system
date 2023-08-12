@@ -1,6 +1,10 @@
 package com.librarysystem.librarysystembackend.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "user")
@@ -25,6 +29,10 @@ public class User {
     private int age;
     @Column(name = "created_at")
     private String date;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonBackReference
+    private List<BookCheckout> bookCheckoutList = new ArrayList<>();
 
     public User() {}
 
@@ -91,6 +99,14 @@ public class User {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public List<BookCheckout> getBookCheckoutList() {
+        return bookCheckoutList;
+    }
+
+    public void setBookCheckoutList(List<BookCheckout> bookCheckoutList) {
+        this.bookCheckoutList = bookCheckoutList;
     }
 
     @Override

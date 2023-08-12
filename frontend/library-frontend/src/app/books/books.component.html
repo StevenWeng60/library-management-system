@@ -8,8 +8,8 @@
       <li><a class="dropdown-item" href="#">Author</a></li>
       <li><a class="dropdown-item" href="#">Date</a></li>
     </ul>
-    <input type="text" class="form-control" aria-label="Text input with dropdown button">
-    <button class="btn btn-secondary" type="submit">Search</button>
+    <input type="text" class="form-control" [(ngModel)]="searchText" aria-label="Text input with dropdown button">
+    <button class="btn btn-secondary" (click)="search()" type="submit">Search</button>
   </div>
   <div class="container-fluid search-body">
     <ul>
