@@ -16,9 +16,12 @@ public class AppDAOImpl implements AppDAO{
 
     // define field for entity manager
     private EntityManager entityManager;
+    // max number of objects returned back from database
+    private int searchLimit;
     @Autowired
     public AppDAOImpl(EntityManager entityManager) {
         this.entityManager = entityManager;
+        this.searchLimit = 25;
     }
 
     // inject entity manager using constructor injections
@@ -58,12 +61,14 @@ public class AppDAOImpl implements AppDAO{
     public List<Book> searchBookResults(String searchTitle) {
         TypedQuery<Book> query = entityManager.createQuery("SELECT b FROM Book b WHERE b.title LIKE :s", Book.class);
         query.setParameter("s", "%" + searchTitle + "%");
+        query.setMaxResults(searchLimit);
         return query.getResultList();
     }
 
     @Override
     public List<Book> getAllBooks() {
         TypedQuery<Book> query = entityManager.createQuery("SELECT b FROM Book b", Book.class);
+        query.setMaxResults(searchLimit);
         return query.getResultList();
     }
 }

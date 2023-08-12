@@ -54,12 +54,14 @@ public class LibraryRestController {
     }
 
     // Example get mapping for an initial render on the client side
+    // Limit of 25 books per search request
     @GetMapping("/getBookResults")
     public List<Book> bookResults() {
         return appDAO.getAllBooks();
     }
 
     // Get mapping which takes in a search parameter and returns the results from the database
+    // Limit of 25 books per search request
     @GetMapping("/searchBooks/{searchText}")
     public List<Book> searchBookResults(@PathVariable String searchText) {
         return appDAO.searchBookResults(searchText);
