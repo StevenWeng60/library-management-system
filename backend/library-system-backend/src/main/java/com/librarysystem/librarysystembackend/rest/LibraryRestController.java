@@ -6,6 +6,7 @@ import com.librarysystem.librarysystembackend.entity.BookCheckout;
 import com.librarysystem.librarysystembackend.entity.User;
 import org.apache.tomcat.util.json.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -88,12 +89,17 @@ public class LibraryRestController {
     }
 
     // Post mapping for adding a book with title, author, published date, copies available
-    @PostMapping("/book")
-    public String createBook() {
-        Book aBook = new Book("Dinosaurs Before Dark","Mary", "Osborne", "1992-07-28", 2, "Fiction");
-        appDAO.save(aBook);
+    @PostMapping(
+            value = "/book",
+            consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
+            produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    public Book createBook(@RequestBody Book book) {
+//        Book aBook = new Book("Dinosaurs Before Dark","Mary", "Osborne", "1992-07-28", 2, "Fiction");
+        System.out.println(book.toString());
+        book.setCheckouts(null);
+        appDAO.save(book);
 
-        return aBook.toString();
+        return book;
     }
 
     // Put mapping for modifying a book

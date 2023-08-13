@@ -1,6 +1,7 @@
 package com.librarysystem.librarysystembackend.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
@@ -19,14 +20,16 @@ public class BookCheckout {
     @Column(name = "due_date")
     private String dueDate;
 
+    //JsonBackReference helps ignore the bookReference during serialization to prevent circular references.
     @ManyToOne
     @JoinColumn(name = "book_id")
-    @JsonManagedReference
+    @JsonBackReference("bookReference")
     private Book book;
 
+    // JsonBackReference helps ignore the userReference during serialization to prevent circular references
     @ManyToOne
     @JoinColumn(name = "user_id")
-    @JsonManagedReference
+    @JsonBackReference("userReference")
     private User user;
 
     public BookCheckout() {

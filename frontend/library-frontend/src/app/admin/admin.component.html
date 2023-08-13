@@ -9,15 +9,23 @@
           <label for="book-title" class="col-form-label">Title: </label>
         </div>
         <div class="col-auto">
-          <input type="text" class="form-control" id="book-title" placeholder="title">
+          <input type="text" class="form-control" id="book-title" placeholder="Title" [(ngModel)]="title">
         </div>
       </div>
       <div class="row g-3 align-items-center mb-2">
         <div class="col-auto">
-          <label for="book-author" class="col-form-label">Author: </label>
+          <label for="book-author" class="col-form-label">Author's first name: </label>
         </div>
         <div class="col-auto">
-          <input type="text" class="form-control" id="book-author" placeholder="title">
+          <input type="text" class="form-control" id="book-author" placeholder="Author's first name" [(ngModel)]="authorFirstName">
+        </div>
+      </div>
+      <div class="row g-3 align-items-center mb-2">
+        <div class="col-auto">
+          <label for="book-author" class="col-form-label">Author's last name: </label>
+        </div>
+        <div class="col-auto">
+          <input type="text" class="form-control" id="book-author" placeholder="Author's last name" [(ngModel)]="authorLastName">
         </div>
       </div>
       <div class="row g-3 align-items-center mb-2">
@@ -25,7 +33,7 @@
           <label for="book-pubdate" class="col-form-label">Published Date: </label>
         </div>
         <div class="col-auto">
-          <input type="text" class="form-control" id="book-pubdate" placeholder="title">
+          <input type="text" class="form-control" id="book-pubdate" placeholder="YYYY-MM-DD" [(ngModel)]="pubDate">
         </div>
       </div>
       <div class="row g-3 align-items-center mb-2">
@@ -33,10 +41,18 @@
           <label for="book-copies" class="col-form-label">Copies Available: </label>
         </div>
         <div class="col-auto">
-          <input type="text" class="form-control" id="book-copies" placeholder="title">
+          <input type="text" class="form-control" id="book-copies" placeholder="Copies available" [(ngModel)]="copiesAvailable">
         </div>
       </div>
-      <button type="button" class="btn btn-secondary">Submit</button>
+      <div class="row g-3 align-items-center mb-2">
+        <div class="col-auto">
+          <label for="book-copies" class="col-form-label">Genre: </label>
+        </div>
+        <div class="col-auto">
+          <input type="text" class="form-control" id="book-copies" placeholder="Genre" [(ngModel)]="genre">
+        </div>
+      </div>
+      <button type="button" class="btn btn-secondary" (click) = "addBook()">Submit</button>
     </div>
   </div>
   <div class="admin-search-container">

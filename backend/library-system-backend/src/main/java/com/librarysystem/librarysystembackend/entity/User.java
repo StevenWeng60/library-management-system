@@ -1,6 +1,7 @@
 package com.librarysystem.librarysystembackend.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ public class User {
     private String date;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JsonBackReference
+    @JsonManagedReference("userReference")
     private List<BookCheckout> bookCheckoutList = new ArrayList<>();
 
     public User() {}
