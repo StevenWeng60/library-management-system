@@ -57,8 +57,8 @@
           <img src="/assets/book-default-cover.jpg" class="card-img-side book-img" alt="book">
           <div>
             <h4>{{i + 1}}. {{book.title}}</h4>
-            <h6>{{book.author}}</h6>
-            <h6>Published: {{book.releaseDate.getFullYear()}}</h6>
+            <h6>{{book.authorFirstName}} {{book.authorLastName}}</h6>
+            <h6>Published: {{book.releaseDate}}</h6>
             <h6>Available: {{book.copiesAvailable}}</h6>
             <button type="button" class="btn btn-warning me-2">Modify</button>
             <button type="button" class="btn btn-danger">Delete</button>

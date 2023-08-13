@@ -1,7 +1,9 @@
 export interface Book {
+  id: number;
   title: string;
-  author: string;
-  pages: number;
-  releaseDate: Date;
+  authorFirstName: string;
+  authorLastName: string;
+  genre: string;
+  releaseDate: string;
   copiesAvailable: number;
 }

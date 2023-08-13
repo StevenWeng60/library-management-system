@@ -1,15 +1,16 @@
 package com.librarysystem.librarysystembackend.rest;
 
 import com.librarysystem.librarysystembackend.dao.AppDAO;
-import com.librarysystem.librarysystembackend.dao.AppDAOImpl;
 import com.librarysystem.librarysystembackend.entity.Book;
 import com.librarysystem.librarysystembackend.entity.BookCheckout;
 import com.librarysystem.librarysystembackend.entity.User;
+import org.apache.tomcat.util.json.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 
+@CrossOrigin
 @RestController
 public class LibraryRestController {
 
@@ -52,16 +53,38 @@ public class LibraryRestController {
         return tempBook.getCheckouts().toString();
     }
 
-    // Get mapping for retrieving a list of books which takes in a search parameter
+    // Example get mapping for an initial render on the client side
+    // Limit of 25 books per search request
     @GetMapping("/getBookResults")
-    public String bookResults() {
-        return "Book results";
+    public List<Book> bookResults() {
+        return appDAO.getAllBooks();
     }
+
+    // Get mapping which takes in a search parameter and returns the results from the database
+    // Limit of 25 books per search request
+    @GetMapping("/searchBooks/{searchAttribute}/{searchText}")
+    public List<Book> searchBookResults(@PathVariable String searchAttribute, @PathVariable String searchText) {
+        System.out.println(searchAttribute);
+        String attribute = "title";
+        if (searchAttribute.equals("Title")){
+            attribute = "title";
+        } else if (searchAttribute.equals("Author's first name")){
+            attribute = "authorFirstName";
+        } else if (searchAttribute.equals("Author's last name")) {
+            attribute = "authorLastName";
+        } else if (searchAttribute.equals("Genre")){
+            attribute = "genre";
+        }
+        return appDAO.searchBookResults(attribute, searchText);
+    }
+
 
     // Post mapping for adding a book with title, author, published date, copies available
     @GetMapping("/book")
-    public String getBook() {
-        return "Getting book";
+    public Book getBook() {
+        Book tempBook = appDAO.findBookById(1);
+
+        return tempBook;
     }
 
     // Post mapping for adding a book with title, author, published date, copies available

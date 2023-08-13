@@ -1,6 +1,7 @@
 package com.librarysystem.librarysystembackend.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -20,10 +21,12 @@ public class BookCheckout {
 
     @ManyToOne
     @JoinColumn(name = "book_id")
+    @JsonManagedReference
     private Book book;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonManagedReference
     private User user;
 
     public BookCheckout() {

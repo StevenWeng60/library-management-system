@@ -4,18 +4,24 @@ import com.librarysystem.librarysystembackend.entity.Book;
 import com.librarysystem.librarysystembackend.entity.BookCheckout;
 import com.librarysystem.librarysystembackend.entity.User;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Component
 public class AppDAOImpl implements AppDAO{
 
     // define field for entity manager
     private EntityManager entityManager;
+    // max number of objects returned back from database
+    private int searchLimit;
     @Autowired
     public AppDAOImpl(EntityManager entityManager) {
         this.entityManager = entityManager;
+        this.searchLimit = 25;
     }
 
     // inject entity manager using constructor injections
@@ -49,5 +55,22 @@ public class AppDAOImpl implements AppDAO{
         Book tempBook = entityManager.find(Book.class, id);
 
         entityManager.remove(tempBook);
+    }
+
+    // METHODS FOR QUERYING BOOKS BY TITLE, AUTHOR, GENRE BELOW
+    @Override
+    public List<Book> searchBookResults(String searchAttribute, String searchTitle) {
+        System.out.println("Search attribute: " + searchAttribute);
+        TypedQuery<Book> query = entityManager.createQuery("SELECT b FROM Book b WHERE b." + searchAttribute + " LIKE :s", Book.class);
+        query.setParameter("s", "%" + searchTitle + "%");
+        query.setMaxResults(searchLimit);
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Book> getAllBooks() {
+        TypedQuery<Book> query = entityManager.createQuery("SELECT b FROM Book b", Book.class);
+        query.setMaxResults(searchLimit);
+        return query.getResultList();
     }
 }
