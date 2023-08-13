@@ -56,31 +56,34 @@
     </div>
   </div>
   <div class="admin-search-container">
-    <div class="input-group mb-3">
-      <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-        aria-expanded="false">Dropdown</button>
-      <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="#">Title</a></li>
-        <li><a class="dropdown-item" href="#">Author</a></li>
-        <li><a class="dropdown-item" href="#">Date</a></li>
-      </ul>
-      <input type="text" class="form-control" aria-label="Text input with dropdown button">
-      <button class="btn btn-secondary" type="submit">Search</button>
-    </div>
-    <div class="container-fluid search-body">
-      <ul>
-        <li *ngFor="let book of books; index as i;" class="mt-3 mb-3 card book-flex p-3">
-          <img src="/assets/book-default-cover.jpg" class="card-img-side book-img" alt="book">
-          <div>
-            <h4>{{i + 1}}. {{book.title}}</h4>
-            <h6>{{book.authorFirstName}} {{book.authorLastName}}</h6>
-            <h6>Published: {{book.releaseDate}}</h6>
-            <h6>Available: {{book.copiesAvailable}}</h6>
-            <button type="button" class="btn btn-warning me-2">Modify</button>
-            <button type="button" class="btn btn-danger">Delete</button>
-          </div>
-        </li>
-      </ul>
+    <div class="container-lg mt-3">
+      <div class="input-group mb-3">
+        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+          aria-expanded="false">{{searchCategory}}</button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item hoverable" (click)="changeCategory('Title')">Title</a></li>
+          <li><a class="dropdown-item hoverable" (click)="changeCategory('Author\'s first name')">Author's first name</a>
+          </li>
+          <li><a class="dropdown-item hoverable" (click)="changeCategory('Author\'s last name')">Author's last name</a></li>
+          <li><a class="dropdown-item hoverable" (click)="changeCategory('Genre')">Genre</a></li>
+        </ul>
+        <input type="text" class="form-control" [(ngModel)]="searchText" aria-label="Text input with dropdown button">
+        <button class="btn btn-secondary" (click)="search()" type="submit">Search</button>
+      </div>
+      <div class="container-fluid search-body">
+        <ul>
+          <li *ngFor="let book of books; index as i;" class="mt-3 mb-3 card book-flex p-3">
+            <img src="/assets/book-default-cover.jpg" class="card-img-side book-img" alt="book">
+            <div>
+              <h4>{{i + 1}}. {{book.title}} ({{book.genre}})</h4>
+              <h6>{{book.authorFirstName}} {{book.authorLastName}}</h6>
+              <h6>{{book.releaseDate}}</h6>
+              <h6>Available: {{book.copiesAvailable}}</h6>
+              <button>Add to cart</button>
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </div>

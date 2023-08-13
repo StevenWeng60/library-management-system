@@ -67,7 +67,7 @@ export class BooksComponent implements OnInit {
     )
   }
 
-  changeCategory(category: string): void {
+  changeCategory(category: String): void {
     this.searchCategory = category;
   }
 }
