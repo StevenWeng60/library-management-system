@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Book } from '../utilities/book.interface';
 import { hardcodedBooks } from '../utilities/hardcode-books';
+import { ApiServiceService } from '../services/api-service.service';
 
 
 
@@ -15,14 +16,14 @@ export class BooksComponent implements OnInit {
   searchText: String = "";
   books: Book[] = [];
   searchCategory: String = "";
-  constructor(private http: HttpClient) {
+  constructor(private apiService: ApiServiceService) {
     this.books = hardcodedBooks;
     this.searchCategory = "Title";
   }
 
   // Load initial book data
   ngOnInit(): void {
-    this.http.get('http://localhost:8080/getBookResults').subscribe(
+    this.apiService.getInitialData().subscribe(
       (v: any) => {
         console.log(v);
         console.log(v.title);
@@ -46,8 +47,8 @@ export class BooksComponent implements OnInit {
 
   // Make a get request to the server to get books according to search params
   search(): void {
-    this.http.get(`http://localhost:8080/searchBooks/${this.searchCategory}/${this.searchText}`).subscribe(
-      (v: any) => {
+    this.apiService.getSearchData(this.searchCategory, this.searchText).subscribe(
+        (v: any) => {
         // Next thing to do is to create the Book objects
         this.books = [];
         v.forEach((item: any) => {
@@ -63,11 +64,10 @@ export class BooksComponent implements OnInit {
           this.books.push(tempBook);
         })
       }
-    );
-    console.log(this.searchText);
+    )
   }
 
-  changeCategory(category: string): void {
+  changeCategory(category: String): void {
     this.searchCategory = category;
   }
 }

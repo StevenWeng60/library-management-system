@@ -37,3 +37,7 @@ ul {
   height: 100%;
   border: 5px solid black;
 }
+
+.hoverable:hover {
+  cursor:pointer;
+}

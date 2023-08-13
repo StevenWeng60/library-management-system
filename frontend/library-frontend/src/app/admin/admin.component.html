@@ -9,15 +9,23 @@
           <label for="book-title" class="col-form-label">Title: </label>
         </div>
         <div class="col-auto">
-          <input type="text" class="form-control" id="book-title" placeholder="title">
+          <input type="text" class="form-control" id="book-title" placeholder="Title" [(ngModel)]="title">
         </div>
       </div>
       <div class="row g-3 align-items-center mb-2">
         <div class="col-auto">
-          <label for="book-author" class="col-form-label">Author: </label>
+          <label for="book-author" class="col-form-label">Author's first name: </label>
         </div>
         <div class="col-auto">
-          <input type="text" class="form-control" id="book-author" placeholder="title">
+          <input type="text" class="form-control" id="book-author" placeholder="Author's first name" [(ngModel)]="authorFirstName">
+        </div>
+      </div>
+      <div class="row g-3 align-items-center mb-2">
+        <div class="col-auto">
+          <label for="book-author" class="col-form-label">Author's last name: </label>
+        </div>
+        <div class="col-auto">
+          <input type="text" class="form-control" id="book-author" placeholder="Author's last name" [(ngModel)]="authorLastName">
         </div>
       </div>
       <div class="row g-3 align-items-center mb-2">
@@ -25,7 +33,7 @@
           <label for="book-pubdate" class="col-form-label">Published Date: </label>
         </div>
         <div class="col-auto">
-          <input type="text" class="form-control" id="book-pubdate" placeholder="title">
+          <input type="text" class="form-control" id="book-pubdate" placeholder="YYYY-MM-DD" [(ngModel)]="pubDate">
         </div>
       </div>
       <div class="row g-3 align-items-center mb-2">
@@ -33,38 +41,50 @@
           <label for="book-copies" class="col-form-label">Copies Available: </label>
         </div>
         <div class="col-auto">
-          <input type="text" class="form-control" id="book-copies" placeholder="title">
+          <input type="text" class="form-control" id="book-copies" placeholder="Copies available" [(ngModel)]="copiesAvailable">
         </div>
       </div>
-      <button type="button" class="btn btn-secondary">Submit</button>
+      <div class="row g-3 align-items-center mb-2">
+        <div class="col-auto">
+          <label for="book-copies" class="col-form-label">Genre: </label>
+        </div>
+        <div class="col-auto">
+          <input type="text" class="form-control" id="book-copies" placeholder="Genre" [(ngModel)]="genre">
+        </div>
+      </div>
+      <button type="button" class="btn btn-secondary" (click) = "addBook()">Submit</button>
+      <div *ngIf="showSuccessMessage"><h2>Added book successfully!</h2></div>
     </div>
   </div>
   <div class="admin-search-container">
-    <div class="input-group mb-3">
-      <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-        aria-expanded="false">Dropdown</button>
-      <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="#">Title</a></li>
-        <li><a class="dropdown-item" href="#">Author</a></li>
-        <li><a class="dropdown-item" href="#">Date</a></li>
-      </ul>
-      <input type="text" class="form-control" aria-label="Text input with dropdown button">
-      <button class="btn btn-secondary" type="submit">Search</button>
-    </div>
-    <div class="container-fluid search-body">
-      <ul>
-        <li *ngFor="let book of books; index as i;" class="mt-3 mb-3 card book-flex p-3">
-          <img src="/assets/book-default-cover.jpg" class="card-img-side book-img" alt="book">
-          <div>
-            <h4>{{i + 1}}. {{book.title}}</h4>
-            <h6>{{book.authorFirstName}} {{book.authorLastName}}</h6>
-            <h6>Published: {{book.releaseDate}}</h6>
-            <h6>Available: {{book.copiesAvailable}}</h6>
-            <button type="button" class="btn btn-warning me-2">Modify</button>
-            <button type="button" class="btn btn-danger">Delete</button>
-          </div>
-        </li>
-      </ul>
+    <div class="container-lg mt-3">
+      <div class="input-group mb-3">
+        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+          aria-expanded="false">{{searchCategory}}</button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item hoverable" (click)="changeCategory('Title')">Title</a></li>
+          <li><a class="dropdown-item hoverable" (click)="changeCategory('Author\'s first name')">Author's first name</a>
+          </li>
+          <li><a class="dropdown-item hoverable" (click)="changeCategory('Author\'s last name')">Author's last name</a></li>
+          <li><a class="dropdown-item hoverable" (click)="changeCategory('Genre')">Genre</a></li>
+        </ul>
+        <input type="text" class="form-control" [(ngModel)]="searchText" aria-label="Text input with dropdown button">
+        <button class="btn btn-secondary" (click)="search()" type="submit">Search</button>
+      </div>
+      <div class="container-fluid search-body">
+        <ul>
+          <li *ngFor="let book of books; index as i;" class="mt-3 mb-3 card book-flex p-3">
+            <img src="/assets/book-default-cover.jpg" class="card-img-side book-img" alt="book">
+            <div>
+              <h4>{{i + 1}}. {{book.title}} ({{book.genre}})</h4>
+              <h6>{{book.authorFirstName}} {{book.authorLastName}}</h6>
+              <h6>{{book.releaseDate}}</h6>
+              <h6>Available: {{book.copiesAvailable}}</h6>
+              <button>Add to cart</button>
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </div>

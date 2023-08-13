@@ -2,6 +2,7 @@ package com.librarysystem.librarysystembackend.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -42,7 +43,7 @@ public class Book {
     private String genre;
 
     @OneToMany(mappedBy = "book", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JsonBackReference
+    @JsonManagedReference("bookReference")
     private List<BookCheckout> checkouts = new ArrayList<>();
 
     public Book() {
