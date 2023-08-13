@@ -75,19 +75,19 @@ public class BookCheckout {
         this.dueDate = dueDate;
     }
 
-    public Book getBookId() {
+    public Book getBook() {
         return book;
     }
 
-    public void setBookId(Book bookId) {
+    public void setBook(Book bookId) {
         this.book = bookId;
     }
 
-    public User getUserId() {
+    public User getUser() {
         return user;
     }
 
-    public void setUserId(User userId) {
+    public void setUser(User userId) {
         this.user = userId;
     }
 

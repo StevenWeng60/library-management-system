@@ -7,6 +7,7 @@ import com.librarysystem.librarysystembackend.entity.User;
 import org.apache.tomcat.util.json.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -57,8 +58,10 @@ public class LibraryRestController {
     // Example get mapping for an initial render on the client side
     // Limit of 25 books per search request
     @GetMapping("/getBookResults")
-    public List<Book> bookResults() {
-        return appDAO.getAllBooks();
+    public ResponseEntity<List<Book>> bookResults() {
+        List<Book> books = appDAO.getAllBooks();
+        System.out.println(books);
+        return ResponseEntity.ok(books);
     }
 
     // Get mapping which takes in a search parameter and returns the results from the database
