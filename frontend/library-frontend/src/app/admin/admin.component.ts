@@ -21,6 +21,8 @@ export class AdminComponent {
   pubDate: String = "";
   copiesAvailable?: Number;
   genre: String = "";
+  // varaibles for miscellaneous items
+  showSuccessMessage: boolean = false;
 
 
   constructor(private apiService: ApiServiceService){
@@ -84,8 +86,15 @@ export class AdminComponent {
       };
 
       this.apiService.postData(data).subscribe(
-        (v) => {
+        (v: any) => {
           console.log(v);
+          if(v) {
+            this.showSuccessMessage = true;
+
+            setTimeout(() => {
+              this.showSuccessMessage = false;
+            }, 3000)
+          }
         }
       );
     }

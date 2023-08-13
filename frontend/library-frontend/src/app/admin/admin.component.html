@@ -53,6 +53,7 @@
         </div>
       </div>
       <button type="button" class="btn btn-secondary" (click) = "addBook()">Submit</button>
+      <div *ngIf="showSuccessMessage"><h2>Added book successfully!</h2></div>
     </div>
   </div>
   <div class="admin-search-container">
