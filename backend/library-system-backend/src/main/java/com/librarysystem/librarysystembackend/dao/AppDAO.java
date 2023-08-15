@@ -18,4 +18,6 @@ public interface AppDAO {
     List<Book> getAllBooks();
     List<Book> searchBookResults(String searchAttribute, String searchTitle);
 
+    List<Book> getUsersBooks(int userid);
+
 }

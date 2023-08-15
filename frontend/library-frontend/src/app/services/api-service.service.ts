@@ -30,4 +30,11 @@ export class ApiServiceService {
     return this.http.get(url);
   }
 
+  // get all of a users books by passing their id found in the dataase
+  getUsersBooks(userId: number): Observable<any> {
+    const url = `${this.apiUrl}/getUsersBooks/${userId}`
+
+    return this.http.get(url);
+  }
+
 }

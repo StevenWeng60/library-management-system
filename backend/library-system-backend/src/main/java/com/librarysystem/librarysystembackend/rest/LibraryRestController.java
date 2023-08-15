@@ -82,6 +82,15 @@ public class LibraryRestController {
         return appDAO.searchBookResults(attribute, searchText);
     }
 
+    // Mapping for getting all of the books a user has checked out
+    @GetMapping("/getUsersBooks/{userId}")
+    public List<Book> getUsersBooks(@PathVariable int userId) {
+        return appDAO.getUsersBooks(userId);
+    }
+
+    // Mapping for getting all of the users checkout history (maybe there is a limit of 25?)
+
+
 
     // Post mapping for adding a book with title, author, published date, copies available
     @GetMapping("/book")

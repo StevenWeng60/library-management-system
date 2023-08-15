@@ -68,6 +68,13 @@ public class AppDAOImpl implements AppDAO{
     }
 
     @Override
+    public List<Book> getUsersBooks(int userid) {
+        TypedQuery<Book> query = entityManager.createQuery("SELECT b FROM User u INNER JOIN u.bookCheckoutList bc INNER JOIN bc.book b WHERE u.id = :userId", Book.class);
+        query.setParameter("userId", userid);
+        return query.getResultList();
+    }
+
+    @Override
     public List<Book> getAllBooks() {
         TypedQuery<Book> query = entityManager.createQuery("SELECT b FROM Book b", Book.class);
         query.setMaxResults(searchLimit);
