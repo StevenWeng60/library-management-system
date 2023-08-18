@@ -14,8 +14,8 @@
     <ul>
       <li *ngFor="let book of books; index as i;" class="card p-1">
         <h5>{{book.title}}</h5>
-        <h6>Checked out at: N/A</h6>
-        <h6>Check in by: N/A</h6>
+        <h6>Checked out at: {{book.checkOutDate}}</h6>
+        <h6>Check in by: {{book.checkInDate}}</h6>
         <button>Check in</button>
       </li>
     </ul>
@@ -24,8 +24,8 @@
     <h1>History</h1>
     <hr>
     <ul>
-      <li *ngFor="let statement of history; index as i">
-        <h6>{{ statement }}</h6>
+      <li *ngFor="let checkout of checkoutHistory; index as i">
+        <h6>Checked out {{ checkout.title }} at {{ checkout.checkoutDate }}</h6>
       </li>
     </ul>
   </div>

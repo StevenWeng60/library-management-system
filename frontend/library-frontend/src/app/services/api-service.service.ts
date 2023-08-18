@@ -37,4 +37,10 @@ export class ApiServiceService {
     return this.http.get(url);
   }
 
+  getUsersBookCheckouts(userId: number): Observable<any> {
+    const url = `${this.apiUrl}/getUsersBookCheckouts/${userId}`
+
+    return this.http.get(url);
+  }
+
 }

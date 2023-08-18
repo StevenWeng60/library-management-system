@@ -6,4 +6,6 @@ export interface Book {
   genre: string;
   releaseDate: string;
   copiesAvailable: number;
+  checkInDate?: string;
+  checkOutDate?: string;
 }

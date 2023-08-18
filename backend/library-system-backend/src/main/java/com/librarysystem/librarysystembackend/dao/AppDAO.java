@@ -20,4 +20,6 @@ public interface AppDAO {
 
     List<Book> getUsersBooks(int userid);
 
+    List<BookCheckout> getUsersBookCheckouts(int userid);
+
 }

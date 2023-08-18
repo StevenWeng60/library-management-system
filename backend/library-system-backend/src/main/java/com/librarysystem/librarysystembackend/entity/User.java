@@ -31,7 +31,7 @@ public class User {
     @Column(name = "created_at")
     private String date;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonManagedReference("userReference")
     private List<BookCheckout> bookCheckoutList = new ArrayList<>();
 
