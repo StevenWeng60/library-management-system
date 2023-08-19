@@ -51,4 +51,11 @@ export class ApiServiceService {
     return this.http.post(url, data, {headers});
   }
 
+  // login
+  login(username: String, password: String): Observable<any> {
+    const url = `${this.apiUrl}/login/${username}/${password}`;
+
+    return this.http.get(url);
+  }
+
 }

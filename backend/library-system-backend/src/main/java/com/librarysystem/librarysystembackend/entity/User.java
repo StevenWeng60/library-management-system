@@ -38,6 +38,7 @@ public class User {
     @JsonManagedReference("userReference")
     private List<BookCheckout> bookCheckoutList = new ArrayList<>();
 
+
     public User() {}
 
     public User(String password, String firstName, String lastName, String email, int age, String date, String username) {

@@ -50,6 +50,15 @@ public class AppDAOImpl implements AppDAO{
     }
 
     @Override
+    public User findUserByUsername(String username) {
+        TypedQuery<User> query = entityManager.createQuery("SELECT u FROM User u WHERE u.username = :username", User.class);
+        query.setParameter("username", username);
+
+        return query.getSingleResult();
+    }
+
+
+    @Override
     @Transactional
     public void deleteBookById(int id) {
         Book tempBook = entityManager.find(Book.class, id);

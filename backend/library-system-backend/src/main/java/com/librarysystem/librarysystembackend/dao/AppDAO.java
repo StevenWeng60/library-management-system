@@ -13,6 +13,7 @@ public interface AppDAO {
     void save(BookCheckout theBookCheckout);
     Book findBookById(int id);
     User findUserById(int id);
+    User findUserByUsername(String username);
 
     void deleteBookById(int id);
     List<Book> getAllBooks();

@@ -41,7 +41,21 @@ public class LibraryRestController {
         catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(user);
         }
+    }
 
+    @GetMapping("/login/{username}/{password}")
+    public ResponseEntity<User> loginUser(@PathVariable String username, @PathVariable String password) {
+        User theUser = appDAO.findUserByUsername(username);
+        try {
+            if (password.equals(theUser.getPassword())){
+                return ResponseEntity.status(200).body(theUser);
+            }
+        }
+        catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(theUser);
+        }
+
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(theUser);
     }
     /*
 
