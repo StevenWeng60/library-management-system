@@ -43,4 +43,12 @@ export class ApiServiceService {
     return this.http.get(url);
   }
 
+  // create an account
+  createAccount(data: any): Observable<any> {
+    const url = `${this.apiUrl}/createAccount`;
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+
+    return this.http.post(url, data, {headers});
+  }
+
 }

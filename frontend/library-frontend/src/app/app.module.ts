@@ -12,6 +12,7 @@ import { BooksComponent } from './books/books.component';
 import { AccountComponent } from './account/account.component';
 import { AboutComponent } from './about/about.component';
 import { AdminComponent } from './admin/admin.component';
+import { CreateAccountComponent } from './create-account/create-account.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { AdminComponent } from './admin/admin.component';
     BooksComponent,
     AccountComponent,
     AboutComponent,
-    AdminComponent
+    AdminComponent,
+    CreateAccountComponent
   ],
   imports: [
     BrowserModule,

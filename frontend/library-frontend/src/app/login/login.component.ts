@@ -11,4 +11,7 @@ export class LoginComponent {
   verifyUser(): void {
     this.router.navigate(['/home'])
   }
+  goToCreateAccount(): void {
+    this.router.navigate(['createAccount'])
+  }
 }

@@ -6,6 +6,7 @@ import com.librarysystem.librarysystembackend.entity.BookCheckout;
 import com.librarysystem.librarysystembackend.entity.User;
 import org.apache.tomcat.util.json.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,13 +29,36 @@ public class LibraryRestController {
     }
 
     // Post mapping for creating a user
-    @PostMapping("/createUser")
-    public String createUser() {
-        User theUser = new User("bobbiwasabi", "Steven", "Weng", "stevenweng50@gmail.com", 21, "2023-08-11");
-        appDAO.save(theUser);
+    @PostMapping(
+            value = "/createAccount",
+            consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
+            produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    public ResponseEntity<User> createUser(@RequestBody User user) {
+        try {
+            appDAO.save(user);
+            return ResponseEntity.ok(user);
+        }
+        catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(user);
+        }
 
-        return theUser.toString();
     }
+    /*
+
+        // Post mapping for adding a book with title, author, published date, copies available
+    @PostMapping(
+            value = "/book",
+            consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
+            produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    public Book createBook(@RequestBody Book book) {
+//        Book aBook = new Book("Dinosaurs Before Dark","Mary", "Osborne", "1992-07-28", 2, "Fiction");
+        System.out.println(book.toString());
+        book.setCheckouts(null);
+        appDAO.save(book);
+
+        return book;
+    }
+     */
 
     // Post mapping for checking out a book
     @PostMapping("/bookCheckout")

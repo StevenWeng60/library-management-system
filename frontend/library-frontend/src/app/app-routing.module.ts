@@ -7,6 +7,7 @@ import { BooksComponent } from './books/books.component';
 import { AccountComponent } from './account/account.component';
 import { AboutComponent } from './about/about.component';
 import { AdminComponent } from './admin/admin.component';
+import { CreateAccountComponent } from './create-account/create-account.component';
 
 const routes: Routes = [
   { path: 'app', component: AppComponent},
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'account', component: AccountComponent },
   { path: 'about', component: AboutComponent },
   { path: 'admin', component: AdminComponent },
+  { path: 'createAccount', component: CreateAccountComponent},
   { path: '**', component: LoginComponent },
 ];
 

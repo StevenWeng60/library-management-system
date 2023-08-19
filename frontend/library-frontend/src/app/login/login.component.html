@@ -6,7 +6,6 @@
           <h3 class="card-title"> Library Management System Login</h3>
         </div>
         <div class="card-body">
-          <form>
             <div class="mb-3">
               <label for="username" class="form-label">Username</label>
               <input type="text" id="username" class="form-control" required>
@@ -15,10 +14,12 @@
               <label for="password" class="form-label">Password</label>
               <input type="password" id="password" class="form-control" required>
             </div>
-            <div class="d-grid gap-2">
+            <div class="d-grid gap-2 mb-3">
               <button type="submit" (click)="verifyUser()" class="btn btn-primary">Login</button>
             </div>
-          </form>
+            <div class="d-grid gap-2">
+              <button type="submit" class="btn btn-secondary" (click)="goToCreateAccount()">Create Account</button>
+            </div>
         </div>
       </div>
     </div>
