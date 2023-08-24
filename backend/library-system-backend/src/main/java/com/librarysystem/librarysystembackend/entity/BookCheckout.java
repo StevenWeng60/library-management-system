@@ -95,6 +95,10 @@ public class BookCheckout {
         return user.getId();
     }
 
+    public int getBookId() {
+        return book.getId();
+    }
+
     // Other getters for identifying book titles
     public String getBookTitle() {
         return book.getTitle();

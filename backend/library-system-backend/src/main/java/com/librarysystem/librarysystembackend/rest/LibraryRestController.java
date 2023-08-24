@@ -81,7 +81,7 @@ public class LibraryRestController {
 
     // Post mapping for checking out a book
     @PostMapping("/bookCheckout/{userId}/{bookId}")
-    public String checkoutBook(@PathVariable int userId, @PathVariable int bookId) {
+    public BookCheckout checkoutBook(@PathVariable int userId, @PathVariable int bookId) {
         Book tempBook = appDAO.findBookById(bookId);
         User tempUser = appDAO.findUserById(userId);
 
@@ -92,9 +92,13 @@ public class LibraryRestController {
         String outDate = checkOutDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
         BookCheckout theBookCheckout = new BookCheckout(inDate, outDate, tempBook, tempUser);
-        appDAO.save(theBookCheckout);
 
-        return theBookCheckout.toString();
+        // -1 from copies available from book
+        tempBook.setCopies(tempBook.getCopies() - 1);
+        appDAO.save(theBookCheckout);
+        appDAO.save(tempBook);
+
+        return theBookCheckout;
     }
 
     // Get mapping for getting all checkouts of a book
@@ -183,7 +187,12 @@ public class LibraryRestController {
     @DeleteMapping("/bookcheckout/{bcId}")
     public BookCheckout deleteCheckout(@PathVariable int bcId){
         BookCheckout bc = appDAO.findBookCheckoutById(bcId);
+        Book tempBook = appDAO.findBookById(bc.getBookId());
+        tempBook.setCopies(tempBook.getCopies() + 1);
+
         appDAO.deleteCheckoutById(bcId);
+        appDAO.save(tempBook);
+
 
         return bc;
     }

@@ -75,6 +75,7 @@ export class BooksComponent implements OnInit {
     this.apiService.checkOutBook(bookId).subscribe(
       (v) => {
         console.log(v);
+        window.location.reload();
       }
     )
   }
