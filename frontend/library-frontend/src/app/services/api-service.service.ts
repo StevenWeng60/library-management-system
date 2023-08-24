@@ -65,4 +65,13 @@ export class ApiServiceService {
     return this.http.delete(url);
   }
 
+  // checkout book
+  checkOutBook(bookId: Number) {
+    const url = `${this.apiUrl}/bookCheckout/${localStorage.getItem("userId")}/${bookId}`;
+    const data = "";
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+
+    return this.http.post(url, data, {headers});
+  }
+
 }

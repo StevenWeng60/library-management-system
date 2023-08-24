@@ -21,7 +21,7 @@
           <h6>{{book.authorFirstName}} {{book.authorLastName}}</h6>
           <h6>{{book.releaseDate}}</h6>
           <h6>Available: {{book.copiesAvailable}}</h6>
-          <button>Checkout</button>
+          <button (click)="checkout(book.id)">Checkout</button>
         </div>
       </li>
     </ul>

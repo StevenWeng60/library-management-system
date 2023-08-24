@@ -70,4 +70,12 @@ export class BooksComponent implements OnInit {
   changeCategory(category: String): void {
     this.searchCategory = category;
   }
+
+  checkout(bookId: number): void {
+    this.apiService.checkOutBook(bookId).subscribe(
+      (v) => {
+        console.log(v);
+      }
+    )
+  }
 }

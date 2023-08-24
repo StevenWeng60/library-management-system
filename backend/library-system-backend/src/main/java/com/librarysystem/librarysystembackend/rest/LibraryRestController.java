@@ -11,6 +11,11 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
 import java.util.List;
 
 @CrossOrigin
@@ -75,11 +80,18 @@ public class LibraryRestController {
      */
 
     // Post mapping for checking out a book
-    @PostMapping("/bookCheckout")
-    public String checkoutBook() {
-        Book tempBook = appDAO.findBookById(3);
-        User tempUser = appDAO.findUserById(3);
-        BookCheckout theBookCheckout = new BookCheckout("2023-08-10", "2023-08-17", tempBook, tempUser);
+    @PostMapping("/bookCheckout/{userId}/{bookId}")
+    public String checkoutBook(@PathVariable int userId, @PathVariable int bookId) {
+        Book tempBook = appDAO.findBookById(bookId);
+        User tempUser = appDAO.findUserById(userId);
+
+        LocalDate checkInDate = LocalDate.now();
+        LocalDate checkOutDate = checkInDate.plus(14, ChronoUnit.DAYS);
+
+        String inDate = checkInDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        String outDate = checkOutDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+        BookCheckout theBookCheckout = new BookCheckout(inDate, outDate, tempBook, tempUser);
         appDAO.save(theBookCheckout);
 
         return theBookCheckout.toString();
