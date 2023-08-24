@@ -73,7 +73,7 @@ export class AccountComponent {
   checkIn(bookCheckoutId?: number): void {
     this.apiService.checkInBook(bookCheckoutId).subscribe(
       (v) => {
-        console.log(v);
+        window.location.reload();
       }
     )
   }
