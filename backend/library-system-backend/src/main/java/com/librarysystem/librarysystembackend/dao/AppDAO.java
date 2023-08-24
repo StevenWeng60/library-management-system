@@ -13,9 +13,12 @@ public interface AppDAO {
     void save(BookCheckout theBookCheckout);
     Book findBookById(int id);
     User findUserById(int id);
+    BookCheckout findBookCheckoutById(int id);
     User findUserByUsername(String username);
 
     void deleteBookById(int id);
+
+    void deleteCheckoutById(int id);
     List<Book> getAllBooks();
     List<Book> searchBookResults(String searchAttribute, String searchTitle);
 

@@ -1,5 +1,6 @@
 export interface Book {
   id: number;
+  checkoutId?: number;
   title: string;
   authorFirstName: string;
   authorLastName: string;

@@ -57,6 +57,13 @@ public class AppDAOImpl implements AppDAO{
         return query.getSingleResult();
     }
 
+    @Override
+    public BookCheckout findBookCheckoutById(int id) {
+        BookCheckout tempCheckout = entityManager.find(BookCheckout.class, id);
+
+        return tempCheckout;
+    }
+
 
     @Override
     @Transactional
@@ -64,6 +71,14 @@ public class AppDAOImpl implements AppDAO{
         Book tempBook = entityManager.find(Book.class, id);
 
         entityManager.remove(tempBook);
+    }
+
+    @Override
+    @Transactional
+    public void deleteCheckoutById(int id) {
+        BookCheckout tempCheckout = entityManager.find(BookCheckout.class, id);
+
+        entityManager.remove(tempCheckout);
     }
 
     // METHODS FOR QUERYING BOOKS BY TITLE, AUTHOR, GENRE BELOW
@@ -80,8 +95,6 @@ public class AppDAOImpl implements AppDAO{
     public List<Book> getUsersBooks(int userid) {
         TypedQuery<Book> query = entityManager.createQuery("SELECT DISTINCT b FROM User u INNER JOIN u.bookCheckoutList bc INNER JOIN bc.book b WHERE u.id = :userId", Book.class);
         query.setParameter("userId", userid);
-        BookCheckout tempC = entityManager.find(BookCheckout.class, 1);
-        System.out.println(tempC.getUser().getId());
         return query.getResultList();
     }
 

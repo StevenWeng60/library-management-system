@@ -18,7 +18,7 @@ export class AccountComponent {
 
   ngOnInit(): void {
     console.log("hi");
-    const userId = 1;
+    const userId = Number(localStorage.getItem("userId"));
 
     combineLatest([
       this.apiService.getUsersBooks(userId),
@@ -41,6 +41,7 @@ export class AccountComponent {
             
             tempBook.checkOutDate = bookCheckout.checkoutDate;
             tempBook.checkInDate = bookCheckout.dueDate;
+            tempBook.checkoutId = bookCheckout.id;
             
           this.books.push(tempBook);
       })
@@ -63,59 +64,17 @@ export class AccountComponent {
           return aCheckout > bCheckout ? -1 : aCheckout < bCheckout ? 1 : 0
       })
     });
-
-    // this.apiService.getUsersBooks(userId).subscribe(
-    //   (v: any) => {
-    //     // Next thing to do is to create the Book objects
-    //     this.books = [];
-    //     this.checkoutHistory = [];
-    //     v.forEach((item: any) => {
-    //       let tempBook: Book = {
-    //         id: item.id,
-    //         title: item.title,
-    //         authorFirstName: item.authorFirstName,
-    //         authorLastName: item.authorLastName,
-    //         genre: item.genre,
-    //         copiesAvailable: item.copies,
-    //         releaseDate: item.publishedDate,
-    //       };
-
-    //       const bookCheckout = item.checkouts.find((checkout: any) => 
-    //         checkout.userId = userId)
-
-    //       tempBook.checkOutDate = bookCheckout.checkoutDate;
-    //       tempBook.checkInDate = bookCheckout.dueDate;
-
-    //       this.books.push(tempBook);
-    //     })
-    //   }
-    // )
-
-    // this.apiService.getUsersBookCheckouts(userId).subscribe(
-    //   (v) => {
-    //     v.forEach((item: any) => {
-    //       let tempCheckout: BookCheckout = {
-    //         id: item.id,
-    //         checkoutDate: item.checkoutDate,
-    //         dueDate: item.dueDate,
-    //         title: item.bookTitle,
-    //         userId: item.userId,
-    //       }
-    //       this.checkoutHistory.push(tempCheckout);
-    //     })
-
-    //     // this.checkoutHistory.sort(function(a, b) {
-    //     //     let aCheckout: any = a.checkoutDate.split('-');
-    //     //     let bCheckout: any = b.checkoutDate.split('-');
-
-    //     //     return aCheckout > bCheckout ? -1 : aCheckout < bCheckout ? 1 : 0
-    //     // })
-    //     this.cdr.detectChanges();
-    //   }
-    // )
   }
 
   redirectToLogin(): void {
     this.router.navigate(['/login'])
+  }
+
+  checkIn(bookCheckoutId?: number): void {
+    this.apiService.checkInBook(bookCheckoutId).subscribe(
+      (v) => {
+        console.log(v);
+      }
+    )
   }
 }

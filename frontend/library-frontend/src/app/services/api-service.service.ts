@@ -58,4 +58,11 @@ export class ApiServiceService {
     return this.http.get(url);
   }
 
+  // checkin book
+  checkInBook(bookCheckoutId?: Number){
+    const url = `${this.apiUrl}/bookcheckout/${bookCheckoutId}`;
+
+    return this.http.delete(url);
+  }
+
 }

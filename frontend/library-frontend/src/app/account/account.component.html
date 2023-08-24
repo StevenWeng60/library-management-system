@@ -16,7 +16,7 @@
         <h5>{{book.title}}</h5>
         <h6>Checked out at: {{book.checkOutDate}}</h6>
         <h6>Check in by: {{book.checkInDate}}</h6>
-        <button>Check in</button>
+        <button (click) = "checkIn(book.checkoutId)">Check in</button>
       </li>
     </ul>
   </div>

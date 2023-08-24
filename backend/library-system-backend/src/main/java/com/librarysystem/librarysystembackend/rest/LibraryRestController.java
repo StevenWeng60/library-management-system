@@ -168,6 +168,14 @@ public class LibraryRestController {
         return "Deleting book";
     }
 
+    @DeleteMapping("/bookcheckout/{bcId}")
+    public BookCheckout deleteCheckout(@PathVariable int bcId){
+        BookCheckout bc = appDAO.findBookCheckoutById(bcId);
+        appDAO.deleteCheckoutById(bcId);
+
+        return bc;
+    }
+
     // expose "/" that returns "Hello World"
 
 }
