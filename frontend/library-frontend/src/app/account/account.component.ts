@@ -17,7 +17,9 @@ export class AccountComponent {
   }
 
   ngOnInit(): void {
-    console.log("hi");
+    if(localStorage.getItem("userId") === null){
+      this.router.navigate(['/login']);
+    }
     const userId = Number(localStorage.getItem("userId"));
 
     combineLatest([
@@ -67,6 +69,7 @@ export class AccountComponent {
   }
 
   redirectToLogin(): void {
+    localStorage.removeItem("userId");
     this.router.navigate(['/login'])
   }
 

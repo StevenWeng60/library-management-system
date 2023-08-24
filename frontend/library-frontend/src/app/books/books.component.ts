@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Book } from '../utilities/book.interface';
 import { hardcodedBooks } from '../utilities/hardcode-books';
 import { ApiServiceService } from '../services/api-service.service';
+import { Router } from '@angular/router';
 
 
 
@@ -16,13 +17,16 @@ export class BooksComponent implements OnInit {
   searchText: String = "";
   books: Book[] = [];
   searchCategory: String = "";
-  constructor(private apiService: ApiServiceService) {
+  constructor(private apiService: ApiServiceService, private router: Router) {
     this.books = hardcodedBooks;
     this.searchCategory = "Title";
   }
 
   // Load initial book data
   ngOnInit(): void {
+    if(localStorage.getItem("userId") === null){
+      this.router.navigate(['/login']);
+    }
     this.apiService.getInitialData().subscribe(
       (v: any) => {
         console.log(v);
