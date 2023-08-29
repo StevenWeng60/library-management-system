@@ -6,19 +6,23 @@
           <h3 class="card-title"> Library Management System Login</h3>
         </div>
         <div class="card-body">
-          <form>
             <div class="mb-3">
               <label for="username" class="form-label">Username</label>
-              <input type="text" id="username" class="form-control" required>
+              <input type="text" id="username" class="form-control" [(ngModel)]="username" required>
             </div>
             <div class="mb-3">
               <label for="password" class="form-label">Password</label>
-              <input type="password" id="password" class="form-control" required>
+              <input type="password" id="password" class="form-control" [(ngModel)]="password" required>
+            </div>
+            <div>
+              <h3 *ngIf="failed" class="failed">Account Login Failed</h3>
+            </div>
+            <div class="d-grid gap-2 mb-3">
+              <button type="submit" (click)="login()" class="btn btn-primary">Login</button>
             </div>
             <div class="d-grid gap-2">
-              <button type="submit" (click)="verifyUser()" class="btn btn-primary">Login</button>
+              <button type="submit" class="btn btn-secondary" (click)="goToCreateAccount()">Create Account</button>
             </div>
-          </form>
         </div>
       </div>
     </div>

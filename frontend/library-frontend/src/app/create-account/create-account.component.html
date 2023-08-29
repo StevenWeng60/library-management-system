@@ -1,0 +1,43 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Create Account</h3>
+        </div>
+        <div class="card-body">
+          <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" id="username" class="form-control" [(ngModel)]="newUsername" required>
+          </div>
+            <div class="mb-3">
+              <label for="fName" class="form-label">First name</label>
+              <input type="text" id="fName" class="form-control" [(ngModel)]="newFirstName" required>
+            </div>
+            <div class="mb-3">
+              <label for="lName" class="form-label">Last name</label>
+              <input type="text" id="lName" class="form-control" [(ngModel)]="newLastName" required>
+            </div>
+            <div class="mb-3">
+              <label for="age" class="form-label">Age</label>
+              <input type="text" id="age" class="form-control" [(ngModel)]="newAge" required>
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input type="password" id="password" class="form-control" [(ngModel)]="newPassword" required>
+            </div>
+            <div class="d-grid gap-2 mb-3">
+              <button type="submit" (click)="createAccount()" class="btn btn-primary">Create</button>
+            </div>
+            <div class="d-grid gap-2 mb-3">
+              <button type="submit" (click)="goToLogin()" class="btn btn-secondary">Login</button>
+            </div>
+            <div>
+              <h3 *ngIf="success" class="success">Account Successfully Created!</h3>
+              <h3 *ngIf="failed" class="failed">Account Creation Failed</h3>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

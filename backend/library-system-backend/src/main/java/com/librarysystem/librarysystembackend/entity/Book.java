@@ -42,7 +42,7 @@ public class Book {
     @Column(name = "genre")
     private String genre;
 
-    @OneToMany(mappedBy = "book", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
     @JsonManagedReference("bookReference")
     private List<BookCheckout> checkouts = new ArrayList<>();
 

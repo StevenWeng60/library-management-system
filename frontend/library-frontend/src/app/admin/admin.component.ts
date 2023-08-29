@@ -3,6 +3,7 @@ import { Book } from '../utilities/book.interface';
 import { hardcodedBooks } from '../utilities/hardcode-books';
 import { ApiServiceService } from '../services/api-service.service';
 import { OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin',
@@ -25,12 +26,15 @@ export class AdminComponent {
   showSuccessMessage: boolean = false;
 
 
-  constructor(private apiService: ApiServiceService){
+  constructor(private apiService: ApiServiceService, private router: Router){
     this.books = hardcodedBooks;
     this.searchCategory = "Title";
   }
 
   ngOnInit(): void {
+    if(localStorage.getItem("userId") === null){
+      this.router.navigate(['/login']);
+    }
     this.apiService.getInitialData().subscribe(
       (v: any) => {
         console.log(v);

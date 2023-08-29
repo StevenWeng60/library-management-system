@@ -91,6 +91,19 @@ public class BookCheckout {
         this.user = userId;
     }
 
+    public int getUserId() {
+        return user.getId();
+    }
+
+    public int getBookId() {
+        return book.getId();
+    }
+
+    // Other getters for identifying book titles
+    public String getBookTitle() {
+        return book.getTitle();
+    }
+
     @Override
     public String toString() {
         return "BookCheckout{" +

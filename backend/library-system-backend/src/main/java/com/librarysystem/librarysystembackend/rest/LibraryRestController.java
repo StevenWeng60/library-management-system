@@ -6,10 +6,16 @@ import com.librarysystem.librarysystembackend.entity.BookCheckout;
 import com.librarysystem.librarysystembackend.entity.User;
 import org.apache.tomcat.util.json.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
 import java.util.List;
 
 @CrossOrigin
@@ -28,23 +34,71 @@ public class LibraryRestController {
     }
 
     // Post mapping for creating a user
-    @PostMapping("/createUser")
-    public String createUser() {
-        User theUser = new User("bobbiwasabi", "Steven", "Weng", "stevenweng50@gmail.com", 21, "2023-08-11");
-        appDAO.save(theUser);
-
-        return theUser.toString();
+    @PostMapping(
+            value = "/createAccount",
+            consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
+            produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    public ResponseEntity<User> createUser(@RequestBody User user) {
+        try {
+            appDAO.save(user);
+            return ResponseEntity.ok(user);
+        }
+        catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(user);
+        }
     }
 
-    // Post mapping for checking out a book
-    @PostMapping("/bookCheckout")
-    public String checkoutBook() {
-        Book tempBook = appDAO.findBookById(3);
-        User tempUser = appDAO.findUserById(3);
-        BookCheckout theBookCheckout = new BookCheckout("2023-08-10", "2023-08-17", tempBook, tempUser);
-        appDAO.save(theBookCheckout);
+    @GetMapping("/login/{username}/{password}")
+    public ResponseEntity<User> loginUser(@PathVariable String username, @PathVariable String password) {
+        User theUser = appDAO.findUserByUsername(username);
+        try {
+            if (password.equals(theUser.getPassword())){
+                return ResponseEntity.status(200).body(theUser);
+            }
+        }
+        catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(theUser);
+        }
 
-        return theBookCheckout.toString();
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(theUser);
+    }
+    /*
+
+        // Post mapping for adding a book with title, author, published date, copies available
+    @PostMapping(
+            value = "/book",
+            consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
+            produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    public Book createBook(@RequestBody Book book) {
+//        Book aBook = new Book("Dinosaurs Before Dark","Mary", "Osborne", "1992-07-28", 2, "Fiction");
+        System.out.println(book.toString());
+        book.setCheckouts(null);
+        appDAO.save(book);
+
+        return book;
+    }
+     */
+
+    // Post mapping for checking out a book
+    @PostMapping("/bookCheckout/{userId}/{bookId}")
+    public BookCheckout checkoutBook(@PathVariable int userId, @PathVariable int bookId) {
+        Book tempBook = appDAO.findBookById(bookId);
+        User tempUser = appDAO.findUserById(userId);
+
+        LocalDate checkInDate = LocalDate.now();
+        LocalDate checkOutDate = checkInDate.plus(14, ChronoUnit.DAYS);
+
+        String inDate = checkInDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        String outDate = checkOutDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+        BookCheckout theBookCheckout = new BookCheckout(inDate, outDate, tempBook, tempUser);
+
+        // -1 from copies available from book
+        tempBook.setCopies(tempBook.getCopies() - 1);
+        appDAO.save(theBookCheckout);
+        appDAO.save(tempBook);
+
+        return theBookCheckout;
     }
 
     // Get mapping for getting all checkouts of a book
@@ -82,6 +136,18 @@ public class LibraryRestController {
         return appDAO.searchBookResults(attribute, searchText);
     }
 
+    // Mapping for getting all of the books a user has checked out
+    @GetMapping("/getUsersBooks/{userId}")
+    public List<Book> getUsersBooks(@PathVariable int userId) {
+        return appDAO.getUsersBooks(userId);
+    }
+
+    // Mapping for getting all of the users checkout history (maybe there is a limit of 25?)
+    @GetMapping("/getUsersBookCheckouts/{userId}")
+    public List<BookCheckout> getBookCheckouts(@PathVariable int userId) {
+        return appDAO.getUsersBookCheckouts(userId);
+    }
+
 
     // Post mapping for adding a book with title, author, published date, copies available
     @GetMapping("/book")
@@ -116,6 +182,19 @@ public class LibraryRestController {
     public String deleteBook() {
         appDAO.deleteBookById(9);
         return "Deleting book";
+    }
+
+    @DeleteMapping("/bookcheckout/{bcId}")
+    public BookCheckout deleteCheckout(@PathVariable int bcId){
+        BookCheckout bc = appDAO.findBookCheckoutById(bcId);
+        Book tempBook = appDAO.findBookById(bc.getBookId());
+        tempBook.setCopies(tempBook.getCopies() + 1);
+
+        appDAO.deleteCheckoutById(bcId);
+        appDAO.save(tempBook);
+
+
+        return bc;
     }
 
     // expose "/" that returns "Hello World"

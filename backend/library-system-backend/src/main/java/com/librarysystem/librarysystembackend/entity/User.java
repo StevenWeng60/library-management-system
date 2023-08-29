@@ -31,19 +31,32 @@ public class User {
     @Column(name = "created_at")
     private String date;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @Column(name = "username")
+    private String username;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonManagedReference("userReference")
     private List<BookCheckout> bookCheckoutList = new ArrayList<>();
 
+
     public User() {}
 
-    public User(String password, String firstName, String lastName, String email, int age, String date) {
+    public User(String password, String firstName, String lastName, String email, int age, String date, String username) {
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.username = username;
         this.age = age;
         this.date = date;
+    }
+
+    public User(String username, String firstName, String lastName, int age, String password){
+        this.username = username;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+        this.password = password;
     }
 
     public int getId() {
@@ -102,6 +115,14 @@ public class User {
         this.date = date;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public List<BookCheckout> getBookCheckoutList() {
         return bookCheckoutList;
     }
@@ -116,8 +137,8 @@ public class User {
                 "id=" + id +
                 ", password=" + password +
                 ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
+                ", username='" + username + '\'' +
                 ", age=" + age +
                 ", date='" + date + '\'' +
                 '}';

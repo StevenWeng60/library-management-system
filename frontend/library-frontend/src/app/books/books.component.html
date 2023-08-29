@@ -20,10 +20,14 @@
           <h4>{{i + 1}}. {{book.title}} ({{book.genre}})</h4>
           <h6>{{book.authorFirstName}} {{book.authorLastName}}</h6>
           <h6>{{book.releaseDate}}</h6>
-          <h6>Available: {{book.copiesAvailable}}</h6>
-          <button>Add to cart</button>
+          <h6 [style.color]="(book.copiesAvailable === 0) ? 'red' : 'black'">Available: {{book.copiesAvailable}}</h6>
+          <button *ngIf="book.copiesAvailable < 1"disabled>Checkout</button>
+          <button *ngIf="book.copiesAvailable > 0" (click)="checkout(book.id)">Checkout</button>
         </div>
       </li>
     </ul>
+    <div *ngIf="books.length === 0">
+      <h1>No books meet the search parameters</h1>
+    </div>
   </div>
 </div>
