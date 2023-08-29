@@ -84,6 +84,9 @@
             </div>
           </li>
         </ul>
+        <div *ngIf="books.length === 0">
+          <h1>No books meet the search parameters</h1>
+        </div>
       </div>
     </div>
   </div>
